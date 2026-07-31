@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import Login from './pages/Login'; 
 import Planes from './pages/Planes';
+import Alimentos from './pages/Alimentos';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -33,7 +34,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/dashboard" element={<h1>Dashboard</h1>} />
           <Route path="/planes" element={<Planes />} />
-          <Route path="/alimentos" element={<h1>Alimentos</h1>} />
+          <Route path="/alimentos" element={<Alimentos />} />
         </Routes>
       </Layout>
     </Router>
