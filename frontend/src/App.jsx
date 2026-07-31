@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar';
 import Login from './pages/Login'; 
 import Planes from './pages/Planes';
 import Alimentos from './pages/Alimentos';
+import Dashboard from './pages/Dashboard';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -14,15 +15,15 @@ const Layout = ({ children }) => {
   }
 
   return (
-    <>
+    <div className="d-flex flex-column vh-100 bg-light">
       <Navbar />
-      <div className="d-flex">
+      <div className="d-flex flex-grow-1 overflow-hidden">
         <Sidebar />
-        <div className="content p-4 w-100">
+        <main className="flex-grow-1 p-4 bg-white overflow-auto m-3 rounded shadow-sm border">
           {children}
-        </div>
+        </main>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -32,7 +33,7 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/dashboard" element={<h1>Dashboard</h1>} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/planes" element={<Planes />} />
           <Route path="/alimentos" element={<Alimentos />} />
         </Routes>
