@@ -7,7 +7,7 @@ const Planes = () => {
   const [form, setForm] = useState({ name: '', objective: '', calories: '', duration: '', status: 'Activo' });
 
   const fetchPlanes = () => {
-    axios.get('http://localhost:3000/plans')
+    axios.get('https://nutriplan-11f4.onrender.com/plans')
       .then(res => setPlanes(res.data))
       .catch(err => console.error(err));
   };
@@ -16,7 +16,7 @@ const Planes = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3000/plans', form).then(() => {
+    axios.post('https://nutriplan-11f4.onrender.com/plans', form).then(() => {
       fetchPlanes();
       setForm({ name: '', objective: '', calories: '', duration: '', status: 'Activo' });
     });
@@ -24,7 +24,7 @@ const Planes = () => {
 
   const handleDelete = (id) => {
     if(window.confirm('¿Eliminar este plan?')) {
-      axios.delete(`http://localhost:3000/plans/${id}`).then(() => fetchPlanes());
+      axios.delete(`https://nutriplan-11f4.onrender.com/plans/${id}`).then(() => fetchPlanes());
     }
   };
 

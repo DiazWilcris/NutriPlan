@@ -7,7 +7,7 @@ const Alimentos = () => {
   const [form, setForm] = useState({ name: '', category: 'Proteína', calories: '', protein: '', carbohydrates: '', fat: '' });
 
   const fetchAlimentos = () => {
-    axios.get('http://localhost:3000/foods')
+    axios.get('https://nutriplan-11f4.onrender.com/foods')
       .then(res => setAlimentos(res.data))
       .catch(err => console.error(err));
   };
@@ -16,7 +16,7 @@ const Alimentos = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3000/foods', form).then(() => {
+    axios.post('https://nutriplan-11f4.onrender.com/foods', form).then(() => {
       fetchAlimentos();
       setForm({ name: '', category: 'Proteína', calories: '', protein: '', carbohydrates: '', fat: '' });
     });
@@ -24,7 +24,7 @@ const Alimentos = () => {
 
   const handleDelete = (id) => {
     if(window.confirm('¿Eliminar este alimento?')) {
-      axios.delete(`http://localhost:3000/foods/${id}`).then(() => fetchAlimentos());
+      axios.delete(`https://nutriplan-11f4.onrender.com/foods/${id}`).then(() => fetchAlimentos());
     }
   };
 

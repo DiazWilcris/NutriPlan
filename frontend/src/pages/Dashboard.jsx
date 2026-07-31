@@ -17,8 +17,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     Promise.all([
-      axios.get('http://localhost:3000/plans'),
-      axios.get('http://localhost:3000/foods')
+      axios.get('https://nutriplan-11f4.onrender.com/plans'),
+      axios.get('https://nutriplan-11f4.onrender.com/foods')
     ]).then(([resPlanes, resAlimentos]) => {
       const planes = resPlanes.data;
       const alimentos = resAlimentos.data;
