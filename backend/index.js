@@ -7,24 +7,34 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Conexión a SQLite
 const db = new sqlite3.Database('./nutriplan.db', (err) => {
   if (err) console.error(err.message);
   console.log('Conectado a SQLite.');
 });
 
-// tabla de planes
-db.run(`CREATE TABLE IF NOT EXISTS plans (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT,
-  objective TEXT,
-  calories INTEGER,
-  duration TEXT,
-  status TEXT
-)`);
+// Crear tablas
+db.serialize(() => {
+  db.run(`CREATE TABLE IF NOT EXISTS plans (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    objective TEXT,
+    calories INTEGER,
+    duration TEXT,
+    status TEXT
+  )`);
 
-// Endpoints CRUD
-// GET: obtener planes
+  db.run(`CREATE TABLE IF NOT EXISTS foods (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    category TEXT,
+    calories INTEGER,
+    protein INTEGER,
+    carbohydrates INTEGER,
+    fat INTEGER
+  )`);
+});
+
+// ENDPOINTS DE PLANES 
 app.get('/plans', (req, res) => {
   db.all("SELECT * FROM plans", [], (err, rows) => {
     if (err) return res.status(500).json({ error: err.message });
@@ -32,7 +42,6 @@ app.get('/plans', (req, res) => {
   });
 });
 
-// POST: Crear plan
 app.post('/plans', (req, res) => {
   const { name, objective, calories, duration, status } = req.body;
   db.run("INSERT INTO plans (name, objective, calories, duration, status) VALUES (?, ?, ?, ?, ?)",
@@ -42,19 +51,32 @@ app.post('/plans', (req, res) => {
   });
 });
 
-// PUT: Editar plan
-app.put('/plans/:id', (req, res) => {
-  const { name, objective, calories, duration, status } = req.body;
-  db.run("UPDATE plans SET name = ?, objective = ?, calories = ?, duration = ?, status = ? WHERE id = ?",
-    [name, objective, calories, duration, status, req.params.id], function(err) {
-      if (err) return res.status(500).json({ error: err.message });
-      res.json({ updated: this.changes });
+app.delete('/plans/:id', (req, res) => {
+  db.run("DELETE FROM plans WHERE id = ?", req.params.id, function(err) {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json({ deleted: this.changes });
   });
 });
 
-// DELETE: Borrar plan
-app.delete('/plans/:id', (req, res) => {
-  db.run("DELETE FROM plans WHERE id = ?", req.params.id, function(err) {
+// ENDPOINTS DE ALIMENTOS 
+app.get('/foods', (req, res) => {
+  db.all("SELECT * FROM foods", [], (err, rows) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(rows);
+  });
+});
+
+app.post('/foods', (req, res) => {
+  const { name, category, calories, protein, carbohydrates, fat } = req.body;
+  db.run("INSERT INTO foods (name, category, calories, protein, carbohydrates, fat) VALUES (?, ?, ?, ?, ?, ?)",
+    [name, category, calories, protein, carbohydrates, fat], function(err) {
+      if (err) return res.status(500).json({ error: err.message });
+      res.json({ id: this.lastID });
+  });
+});
+
+app.delete('/foods/:id', (req, res) => {
+  db.run("DELETE FROM foods WHERE id = ?", req.params.id, function(err) {
     if (err) return res.status(500).json({ error: err.message });
     res.json({ deleted: this.changes });
   });
