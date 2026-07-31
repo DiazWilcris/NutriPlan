@@ -6,6 +6,14 @@ import Planes from './pages/Planes';
 import Alimentos from './pages/Alimentos';
 import Dashboard from './pages/Dashboard';
 
+const ProtectedRoute = ({ children }) => {
+  const user = localStorage.getItem('nutriplan_user');
+  if (!user) {
+    return <Navigate to="/" replace />;
+  }
+  return children;
+};
+
 const Layout = ({ children }) => {
   const location = useLocation();
   const isLoginPage = location.pathname === '/';
