@@ -50,23 +50,27 @@ const Alimentos = () => {
             </select>
           </div>
           <div className="col-md-2">
-            <input type="number" className="form-control" placeholder="Calorías" required 
+            {/* Se agregó min="0" aquí */}
+            <input type="number" className="form-control" placeholder="Calorías" required min="0"
               value={form.calories} onChange={e => setForm({...form, calories: e.target.value})} />
           </div>
           <div className="col-md-2">
-            <input type="number" className="form-control" placeholder="Prot (g)" required 
+            {/* Se agregó min="0" aquí */}
+            <input type="number" className="form-control" placeholder="Prot (g)" required min="0"
               value={form.protein} onChange={e => setForm({...form, protein: e.target.value})} />
           </div>
           <div className="col-md-2">
-            <input type="number" className="form-control" placeholder="Carb (g)" required 
+            {/* Se agregó min="0" aquí */}
+            <input type="number" className="form-control" placeholder="Carb (g)" required min="0"
               value={form.carbohydrates} onChange={e => setForm({...form, carbohydrates: e.target.value})} />
           </div>
           <div className="col-md-2">
-            <input type="number" className="form-control" placeholder="Grasa (g)" required 
+            {/* Se agregó min="0" aquí */}
+            <input type="number" className="form-control" placeholder="Grasa (g)" required min="0"
               value={form.fat} onChange={e => setForm({...form, fat: e.target.value})} />
           </div>
           <div className="col-12 text-end">
-            <button type="submit" className="btn btn-success">Agregar Alimento</button>
+            <button type="submit" className="btn btn-success fw-bold">Agregar Alimento</button>
           </div>
         </form>
       </div>
