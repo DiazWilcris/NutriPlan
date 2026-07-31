@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar';
 import Login from './pages/Login'; 
 import Planes from './pages/Planes';
 import Alimentos from './pages/Alimentos';
+import Dashboard from './pages/Dashboard';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -32,7 +33,7 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/dashboard" element={<h1>Dashboard</h1>} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/planes" element={<Planes />} />
           <Route path="/alimentos" element={<Alimentos />} />
         </Routes>
