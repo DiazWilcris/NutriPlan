@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import Login from './pages/Login'; 
+import Planes from './pages/Planes';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -31,7 +32,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/dashboard" element={<h1>Dashboard</h1>} />
-          <Route path="/planes" element={<h1>Planes Alimenticios</h1>} />
+          <Route path="/planes" element={<Planes />} />
           <Route path="/alimentos" element={<h1>Alimentos</h1>} />
         </Routes>
       </Layout>
