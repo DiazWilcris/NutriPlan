@@ -15,15 +15,15 @@ const Layout = ({ children }) => {
   }
 
   return (
-    <>
+    <div className="d-flex flex-column vh-100 bg-light">
       <Navbar />
-      <div className="d-flex">
+      <div className="d-flex flex-grow-1 overflow-hidden">
         <Sidebar />
-        <div className="content p-4 w-100">
+        <main className="flex-grow-1 p-4 bg-white overflow-auto m-3 rounded shadow-sm border">
           {children}
-        </div>
+        </main>
       </div>
-    </>
+    </div>
   );
 };
 
